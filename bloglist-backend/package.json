@@ -7,7 +7,7 @@
   "dev": "cross-env NODE_ENV=development node --watch index.js",
   "test": "cross-env NODE_ENV=test node --test",
   "lint": "eslint .",
-  "build:ui": "rm -rf dist && cd ../bloglist-frontend && npm install && npm run build && cp -r dist ../bloglist-backend"
+  "build:ui": "rm -rf dist && cd ../bloglist-frontend && npm install --include=dev && npm run build && cp -r dist ../bloglist-backend"
   },
   "engines": {
     "node": ">=22.3.0"
