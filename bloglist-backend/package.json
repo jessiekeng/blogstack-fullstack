@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node index.js",
-    "dev": "cross-env NODE_ENV=development node --watch index.js",
-    "test": "cross-env NODE_ENV=test node --test",
-    "lint": "eslint ."
+  "start": "cross-env NODE_ENV=production node index.js",
+  "dev": "cross-env NODE_ENV=development node --watch index.js",
+  "test": "cross-env NODE_ENV=test node --test",
+  "lint": "eslint .",
+  "build:ui": "rm -rf dist && cd ../bloglist-frontend && npm install && npm run build && cp -r dist ../bloglist-backend"
   },
   "engines": {
     "node": ">=22.3.0"
