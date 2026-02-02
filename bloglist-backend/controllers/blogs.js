@@ -56,33 +56,34 @@ blogsRouter.post('/', middleware.userExtractor, async (request, response) => {
  */
 blogsRouter.delete('/:id', middleware.userExtractor, async (request, response) => {
   const user = request.user 
-  if (!user) return response.status(401).json({ error: 'token missing or invalid' })
-
-  const blog = await Blog.findById(request.params.id)
-  if (!blog) return response.status(404).json({ error: 'blog not found' })
-
-  // 1. Get the creator's ID safely
-  // If user is populated, we use blog.user._id. If not, we use blog.user
-  const creatorId = blog.user._id ? blog.user._id.toString() : blog.user.toString()
   
-  // 2. Get the logged-in user's ID
-  const requesterId = user._id.toString()
-
-  // 3. Define the permissions
-  const isOwner = creatorId === requesterId
-  const isAdmin = user.role === 'admin'
-
-  // DEBUG: Check your console to see what is happening!
-  console.log(`Creator: ${creatorId} | Requester: ${requesterId} | Role: ${user.role}`)
-
-  if (!isOwner && !isAdmin) {
-    return response.status(401).json({ 
-      error: 'unauthorized: only the creator or an admin can delete this blog' 
-    })
+  if (!user) {
+    return response.status(401).json({ error: 'token missing or invalid' })
   }
 
-  await Blog.findByIdAndDelete(request.params.id)
-  response.status(204).end()
+  const blog = await Blog.findById(request.params.id)
+  if (!blog) {
+    return response.status(404).json({ error: 'blog not found' })
+  }
+
+  // Ensure we are comparing strings
+  const blogCreatorId = blog.user.toString()
+  const userId = user._id.toString()
+  const userRole = user.role // This comes from the DB via userExtractor
+
+  // LOGGING: Check your terminal/console when you click 'Send Request'
+  console.log(`--- DELETE ATTEMPT ---`)
+  console.log(`User: ${user.username} | Role: ${userRole}`)
+  console.log(`Is Admin? ${userRole === 'admin'}`)
+  console.log(`Is Owner? ${blogCreatorId === userId}`)
+
+  // Logic: Allow if user is the owner OR user is an admin
+  if (blogCreatorId === userId || userRole === 'admin') {
+    await Blog.findByIdAndDelete(request.params.id)
+    return response.status(204).end()
+  }
+
+  return response.status(401).json({ error: 'unauthorized: only the creator or an admin can delete this' })
 })
 
 /**

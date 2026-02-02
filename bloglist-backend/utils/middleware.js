@@ -66,18 +66,14 @@ const adminCheck = (request, response, next) => {
  */
 const userExtractor = async (request, response, next) => {
   if (!request.token) {
-    request.user = null;
-    return next(); // Exit early if no token
-  }
-
-  try {
+    request.user = null
+  } else {
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
     if (!decodedToken.id) {
       return response.status(401).json({ error: 'token invalid' })
     }
+    // FETCH THE FULL USER: This is how we get the 'role' field from MongoDB
     request.user = await User.findById(decodedToken.id)
-  } catch (error) {
-    return next(error) // Let the errorHandler handle JWT errors
   }
   next()
 }
