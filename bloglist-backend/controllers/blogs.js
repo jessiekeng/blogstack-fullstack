@@ -1,6 +1,6 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
-const middleware = require('../utils/middleware') // Added import
+const middleware = require('../utils/middleware')
 
 /**
  * @openapi
@@ -21,7 +21,6 @@ blogsRouter.get('/', async (request, response) => {
  * post:
  * summary: Create a new blog
  */
-// UPDATED: Added userExtractor here
 blogsRouter.post('/', middleware.userExtractor, async (request, response) => {
   const { title, author, url, likes } = request.body
   const user = request.user 
@@ -55,7 +54,6 @@ blogsRouter.post('/', middleware.userExtractor, async (request, response) => {
  * delete:
  * summary: Delete a blog
  */
-// UPDATED: Added userExtractor here
 blogsRouter.delete('/:id', middleware.userExtractor, async (request, response) => {
   const user = request.user 
   if (!user) return response.status(401).json({ error: 'token missing or invalid' })
@@ -63,8 +61,12 @@ blogsRouter.delete('/:id', middleware.userExtractor, async (request, response) =
   const blog = await Blog.findById(request.params.id)
   if (!blog) return response.status(404).json({ error: 'blog not found' })
 
-  if (blog.user.toString() !== user._id.toString()) {
-    return response.status(401).json({ error: 'unauthorized' })
+  // UPDATED: Allow deletion if user is the owner OR if user is an admin
+  const isOwner = blog.user.toString() === user._id.toString()
+  const isAdmin = user.role === 'admin'
+
+  if (!isOwner && !isAdmin) {
+    return response.status(401).json({ error: 'unauthorized: only the creator or an admin can delete this blog' })
   }
 
   await Blog.findByIdAndDelete(request.params.id)
@@ -77,7 +79,6 @@ blogsRouter.delete('/:id', middleware.userExtractor, async (request, response) =
  * put:
  * summary: Update a blog
  */
-// PUBLIC: No userExtractor, allowing public likes
 blogsRouter.put('/:id', async (request, response) => {
   const { title, author, url, likes } = request.body
   const blog = { title, author, url, likes }

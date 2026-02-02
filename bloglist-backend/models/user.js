@@ -11,8 +11,8 @@ const userSchema = new mongoose.Schema({
   passwordHash: String,
   role: {
     type: String,
-    enum: ['user', 'admin'],
-    default: 'user'
+    enum: ['user', 'admin'], // Restricts input to these two options
+    default: 'user'         // New users are 'user' by default
   },
   blogs: [
     {

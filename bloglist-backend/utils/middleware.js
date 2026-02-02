@@ -66,14 +66,18 @@ const adminCheck = (request, response, next) => {
  */
 const userExtractor = async (request, response, next) => {
   if (!request.token) {
-    request.user = null
-  } else {
+    request.user = null;
+    return next(); // Exit early if no token
+  }
+
+  try {
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
     if (!decodedToken.id) {
       return response.status(401).json({ error: 'token invalid' })
     }
-    // This finds the user using the 'id' we put in the token above
     request.user = await User.findById(decodedToken.id)
+  } catch (error) {
+    return next(error) // Let the errorHandler handle JWT errors
   }
   next()
 }
