@@ -61,12 +61,24 @@ blogsRouter.delete('/:id', middleware.userExtractor, async (request, response) =
   const blog = await Blog.findById(request.params.id)
   if (!blog) return response.status(404).json({ error: 'blog not found' })
 
-  // Admin logic: Creator OR Admin can delete
-  const isOwner = blog.user.toString() === user._id.toString()
+  // 1. Get the creator's ID safely
+  // If user is populated, we use blog.user._id. If not, we use blog.user
+  const creatorId = blog.user._id ? blog.user._id.toString() : blog.user.toString()
+  
+  // 2. Get the logged-in user's ID
+  const requesterId = user._id.toString()
+
+  // 3. Define the permissions
+  const isOwner = creatorId === requesterId
   const isAdmin = user.role === 'admin'
 
+  // DEBUG: Check your console to see what is happening!
+  console.log(`Creator: ${creatorId} | Requester: ${requesterId} | Role: ${user.role}`)
+
   if (!isOwner && !isAdmin) {
-    return response.status(401).json({ error: 'unauthorized: only the creator or an admin can delete this blog' })
+    return response.status(401).json({ 
+      error: 'unauthorized: only the creator or an admin can delete this blog' 
+    })
   }
 
   await Blog.findByIdAndDelete(request.params.id)
