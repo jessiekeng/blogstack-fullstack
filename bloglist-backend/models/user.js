@@ -8,7 +8,12 @@ const userSchema = new mongoose.Schema({
     minlength: 3 // Added validation for exercise 4.16
   },
   name: String,
-  passwordHash: String, 
+  passwordHash: String,
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user'
+  },
   blogs: [
     {
       type: mongoose.Schema.Types.ObjectId,

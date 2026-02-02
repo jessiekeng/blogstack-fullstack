@@ -45,6 +45,22 @@ const tokenExtractor = (request, response, next) => {
 }
 
 /**
+ * Admin Middleware
+ * Checks if the user has admin role
+ */
+const adminCheck = (request, response, next) => {
+  if (!request.user) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+
+  if (request.user.role !== 'admin') {
+    return response.status(403).json({ error: 'admin privileges required' })
+  }
+
+  next()
+}
+
+/**
  * userExtractor Middleware
  * Finds the user based on the token and attaches it to request.user
  */
@@ -67,5 +83,6 @@ module.exports = {
   unknownEndpoint,
   errorHandler,
   tokenExtractor,
+  adminCheck,
   userExtractor
 }
