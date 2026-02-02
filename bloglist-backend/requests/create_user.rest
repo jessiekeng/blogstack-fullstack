@@ -1,4 +1,4 @@
-### Create a new user
+### 1. Create Regular User (Run once)
 POST http://localhost:3003/api/users
 Content-Type: application/json
 
@@ -8,7 +8,8 @@ Content-Type: application/json
   "password": "password123"
 }
 
-### Admin user
+### 2. Create Admin User (Run once)
+### Note: If "admin" already exists, this will return the 400 error.
 POST http://localhost:3003/api/users
 Content-Type: application/json
 
@@ -19,7 +20,20 @@ Content-Type: application/json
   "role": "admin"
 }
 
-### Login
+### 3. Create Super Admin (Unique name for 2026)
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "superadmin2026",
+  "name": "System Administrator",
+  "password": "your-secure-password",
+  "role": "admin"
+}
+
+---
+
+### 4. Login as John
 POST http://localhost:3003/api/login
 Content-Type: application/json
 
@@ -28,20 +42,11 @@ Content-Type: application/json
   "password": "password123"
 }
 
-### Login as admin
+### 5. Login as Admin
 POST http://localhost:3003/api/login
 Content-Type: application/json
 
 {
   "username": "admin",
   "password": "admin123"
-}
-
-POST http://localhost:3003/api/login
-Content-Type: application/json
-{
-  "username": "superadmin2026",
-  "name": "System Administrator",
-  "password": "your-secure-password",
-  "role": "admin"
 }
