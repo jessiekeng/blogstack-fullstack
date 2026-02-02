@@ -44,10 +44,6 @@ const tokenExtractor = (request, response, next) => {
   next()
 }
 
-/**
- * Admin Middleware
- * Checks if the user has admin role
- */
 const adminCheck = (request, response, next) => {
   if (!request.user) {
     return response.status(401).json({ error: 'token missing or invalid' })
@@ -60,20 +56,20 @@ const adminCheck = (request, response, next) => {
   next()
 }
 
-/**
- * userExtractor Middleware
- * Finds the user based on the token and attaches it to request.user
- */
 const userExtractor = async (request, response, next) => {
   if (!request.token) {
     request.user = null
   } else {
-    const decodedToken = jwt.verify(request.token, process.env.SECRET)
-    if (!decodedToken.id) {
-      return response.status(401).json({ error: 'token invalid' })
+    try {
+      const decodedToken = jwt.verify(request.token, process.env.SECRET)
+      if (!decodedToken.id) {
+        return response.status(401).json({ error: 'token invalid' })
+      }
+      // Fetches the full user document from DB to include the 'role' field
+      request.user = await User.findById(decodedToken.id)
+    } catch (exception) {
+      return next(exception) // Passes JWT errors to the errorHandler
     }
-    // FETCH THE FULL USER: This is how we get the 'role' field from MongoDB
-    request.user = await User.findById(decodedToken.id)
   }
   next()
 }

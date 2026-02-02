@@ -8,7 +8,7 @@ Content-Type: application/json
   "password": "secretpassword",
   "role": "admin"
 }
-### Login as the New Admin
+### 1. Login as Admin
 POST http://localhost:3003/api/login
 Content-Type: application/json
 
@@ -16,4 +16,6 @@ Content-Type: application/json
   "username": "final_admin",
   "password": "secretpassword"
 }
-
+### 2. Delete as Admin
+DELETE http://localhost:3003/api/blogs/698005dc630b6d2df89480a9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpbmFsX2FkbWluIiwiaWQiOiI2OTgwMTgzMTg0MDZlZDkyOTgwY2VmNjQiLCJpYXQiOjE3NzAwMDM3MjB9.qngxVh1oiZ_PQ5WV86Adw6K_auqu0Y4wqSmTAvsAD9w
