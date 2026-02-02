@@ -1,0 +1,24 @@
+### 1. Get all users to find the IDs of the ones you want to delete
+GET http://localhost:3003/api/users
+
+GET http://localhost:3003/api/blogs
+
+### 2. Login as your "Main" Admin to get a token
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "final_admin",
+  "password": "secretpassword"
+}
+
+### 3. Delete an extra admin (Replace USER_ID with ID from step 1)
+DELETE http://localhost:3003/api/users/698015076c20a4a3b9c6dafe
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpbmFsX2FkbWluIiwiaWQiOiI2OTgwMTgzMTg0MDZlZDkyOTgwY2VmNjQiLCJpYXQiOjE3NzAwMDM5ODd9.35rAW2tpHbf83xmlnyelVlo3pRLVuuB4Jbh7bZt__Dk
+### 4. Delete another extra admin (Replace USER_ID with ID from step 1)
+DELETE http://localhost:3003/api/users/698015796c20a4a3b9c6db08
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpbmFsX2FkbWluIiwiaWQiOiI2OTgwMTgzMTg0MDZlZDkyOTgwY2VmNjQiLCJpYXQiOjE3NzAwMDM5ODd9.35rAW2tpHbf83xmlnyelVlo3pRLVuuB4Jbh7bZt__Dk
+
+### Delete a blog created by someone else
+DELETE http://localhost:3003/api/blogs/6978a51aa6bc5b530e5ebbee
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpbmFsX2FkbWluIiwiaWQiOiI2OTgwMTgzMTg0MDZlZDkyOTgwY2VmNjQiLCJpYXQiOjE3NzAwMDQxNjl9.rPZ5eWzqCUMemvOPESNqjsZLnvdaYmaxKBCalEQPuy4

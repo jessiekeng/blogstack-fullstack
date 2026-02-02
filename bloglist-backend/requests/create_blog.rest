@@ -6,3 +6,5 @@ Content-Type: application/json
   "name": "Test User",
   "password": "password123"
 }
+### Create a Blog as Test User
+GET http://localhost:3003/api/blogs
