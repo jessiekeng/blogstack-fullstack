@@ -21,6 +21,7 @@ Content-Type: application/json
 }
 
 ### 3. Create Super Admin (Unique name for 2026)
+### Create Super Admin
 POST http://localhost:3003/api/users
 Content-Type: application/json
 
@@ -31,6 +32,14 @@ Content-Type: application/json
   "role": "admin"
 }
 
+### <--- The '###' above is vital! Now the next request:
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "superadmin2026",
+  "password": "your-secure-password"
+}
 ---
 
 ### 4. Login as John
@@ -42,11 +51,3 @@ Content-Type: application/json
   "password": "password123"
 }
 
-### 5. Login as Admin
-POST http://localhost:3003/api/login
-Content-Type: application/json
-
-{
-  "username": "admin",
-  "password": "admin123"
-}
