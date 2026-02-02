@@ -1,0 +1,38 @@
+### Create a new user
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "john",
+  "name": "John Doe",
+  "password": "password123"
+}
+
+### Admin user
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "name": "Admin User",
+  "password": "admin123",
+  "role": "admin"
+}
+
+### Login
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "john",
+  "password": "password123"
+}
+
+### Login as admin
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}

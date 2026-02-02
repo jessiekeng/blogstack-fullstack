@@ -12,7 +12,7 @@ usersRouter.get('/', async (request, response) => {
 
 // POST a new user
 usersRouter.post('/', async (request, response) => {
-  const { username, name, password } = request.body
+  const { username, name, password, role } = request.body
 
   // Password validation (Done in controller)
   if (!password || password.length < 3) {
@@ -35,6 +35,7 @@ usersRouter.post('/', async (request, response) => {
     username,
     name,
     passwordHash,
+    role: role || 'user'
   })
 
   const savedUser = await user.save()
