@@ -37,7 +37,7 @@ app.use(middleware.tokenExtractor)
 app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter)
 
-// UPDATED: Removed userExtractor from here to allow public GET and PUT
+// Allows public GET/PUT while DELETE/POST are protected inside the router
 app.use('/api/blogs', blogsRouter)
 
 app.use(middleware.unknownEndpoint)

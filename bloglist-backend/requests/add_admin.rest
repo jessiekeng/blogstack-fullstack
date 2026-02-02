@@ -1,0 +1,19 @@
+### Create a Fresh Admin
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "final_admin",
+  "name": "System Admin",
+  "password": "secretpassword",
+  "role": "admin"
+}
+### Login as the New Admin
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "final_admin",
+  "password": "secretpassword"
+}
+

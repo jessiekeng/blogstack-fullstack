@@ -61,7 +61,7 @@ blogsRouter.delete('/:id', middleware.userExtractor, async (request, response) =
   const blog = await Blog.findById(request.params.id)
   if (!blog) return response.status(404).json({ error: 'blog not found' })
 
-  // UPDATED: Allow deletion if user is the owner OR if user is an admin
+  // Admin logic: Creator OR Admin can delete
   const isOwner = blog.user.toString() === user._id.toString()
   const isAdmin = user.role === 'admin'
 
