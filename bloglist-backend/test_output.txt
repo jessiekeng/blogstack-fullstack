@@ -1,0 +1,310 @@
+
+> bloglist-backend@1.0.0 test
+> cross-env NODE_ENV=test node --test
+
+TAP version 13
+# [dotenv@17.2.3] injecting env (4) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+# connecting to mongodb+srv://fullstack:fullstackpassword123@cluster0.jpvdcoy.mongodb.net/testBloglist?retryWrites=true&w=majority&appName=Cluster0
+# connected to MongoDB
+# Method: POST
+# Path:   /api/login
+# Body:   { username: 'testuser', password: 'testpassword' }
+# ---
+# Method: GET
+# Path:   /api/blogs
+# Body:   undefined
+# ---
+# Subtest: when there is initially some blogs saved
+    # Subtest: blogs are returned as json
+    ok 1 - blogs are returned as json
+      ---
+      duration_ms: 7127.324185
+      type: 'test'
+      ...
+# Method: POST
+# Path:   /api/login
+# Body:   { username: 'testuser', password: 'testpassword' }
+# ---
+# Method: GET
+# Path:   /api/blogs
+# Body:   undefined
+# ---
+    # Subtest: all blogs are returned
+    ok 2 - all blogs are returned
+      ---
+      duration_ms: 2138.668907
+      type: 'test'
+      ...
+# Method: POST
+# Path:   /api/login
+# Body:   { username: 'testuser', password: 'testpassword' }
+# ---
+# Method: GET
+# Path:   /api/blogs
+# Body:   undefined
+# ---
+    # Subtest: unique identifier property is named id
+    ok 3 - unique identifier property is named id
+      ---
+      duration_ms: 1901.53847
+      type: 'test'
+      ...
+# Method: POST
+# Path:   /api/login
+# Body:   { username: 'testuser', password: 'testpassword' }
+# ---
+# Method: POST
+# Path:   /api/blogs
+# Body:   {
+#   title: 'Testing the POST route',
+#   author: 'Fullstack Open',
+#   url: 'https://fullstackopen.com/',
+#   likes: 10
+# }
+# ---
+    # Subtest: addition of a new blog
+        # Subtest: succeeds with valid data and token
+        ok 1 - succeeds with valid data and token
+          ---
+          duration_ms: 2445.735305
+          type: 'test'
+          ...
+# Method: POST
+# Path:   /api/login
+# Body:   { username: 'testuser', password: 'testpassword' }
+# ---
+# Method: POST
+# Path:   /api/blogs
+# Body:   { title: 'No Token Blog', author: 'Tester', url: 'https://test.com/' }
+# ---
+        # Subtest: fails with 401 Unauthorized if token is not provided
+        ok 2 - fails with 401 Unauthorized if token is not provided
+          ---
+          duration_ms: 1777.219716
+          type: 'test'
+          ...
+# Method: POST
+# Path:   /api/login
+# Body:   { username: 'testuser', password: 'testpassword' }
+# ---
+# Method: POST
+# Path:   /api/blogs
+# Body:   {
+#   title: 'Missing Likes Blog',
+#   author: 'Tester',
+#   url: 'https://test.com/'
+# }
+# ---
+        # Subtest: if likes property is missing, it defaults to 0
+        ok 3 - if likes property is missing, it defaults to 0
+          ---
+          duration_ms: 2140.70554
+          type: 'test'
+          ...
+        1..3
+    ok 4 - addition of a new blog
+      ---
+      duration_ms: 6364.464817
+      type: 'suite'
+      ...
+# Method: POST
+# Path:   /api/login
+# Body:   { username: 'testuser', password: 'testpassword' }
+# ---
+# Method: DELETE
+# Path:   /api/blogs/6996cde8aca33de0298e7baf
+# Body:   undefined
+# ---
+# --- DELETE ATTEMPT ---
+# User: testuser | Role: user
+# Is Admin? false
+# Is Owner? true
+    # Subtest: deletion of a blog
+        # Subtest: succeeds with status code 204 if token is valid
+        ok 1 - succeeds with status code 204 if token is valid
+          ---
+          duration_ms: 2662.117108
+          type: 'test'
+          ...
+        1..1
+    ok 5 - deletion of a blog
+      ---
+      duration_ms: 2662.882642
+      type: 'suite'
+      ...
+# Method: POST
+# Path:   /api/login
+# Body:   { username: 'testuser', password: 'testpassword' }
+# ---
+# Method: PUT
+# Path:   /api/blogs/6996cdeaaca33de0298e7bbd
+# Body:   {
+#   title: 'React patterns',
+#   author: 'Michael Chan',
+#   url: 'https://reactpatterns.com/',
+#   likes: 8,
+#   user: '6996cdeaaca33de0298e7bba',
+#   id: '6996cdeaaca33de0298e7bbd'
+# }
+# ---
+    # Subtest: updating a blog
+        # Subtest: succeeds with status code 200 if id is valid
+        ok 1 - succeeds with status code 200 if id is valid
+          ---
+          duration_ms: 2028.846956
+          type: 'test'
+          ...
+        1..1
+    ok 6 - updating a blog
+      ---
+      duration_ms: 2029.163
+      type: 'suite'
+      ...
+    1..6
+ok 1 - when there is initially some blogs saved
+  ---
+  duration_ms: 22226.105041
+  type: 'suite'
+  ...
+# Subtest: dummy returns one
+ok 2 - dummy returns one
+  ---
+  duration_ms: 1.739559
+  type: 'test'
+  ...
+# Subtest: favorite blog
+    # Subtest: finds the blog with the most likes
+    ok 1 - finds the blog with the most likes
+      ---
+      duration_ms: 8.705767
+      type: 'test'
+      ...
+    1..1
+ok 3 - favorite blog
+  ---
+  duration_ms: 11.337878
+  type: 'suite'
+  ...
+# Subtest: most blogs
+    # Subtest: returns the author with most blogs and the count
+    ok 1 - returns the author with most blogs and the count
+      ---
+      duration_ms: 4.299056
+      type: 'test'
+      ...
+    1..1
+ok 4 - most blogs
+  ---
+  duration_ms: 7.215118
+  type: 'suite'
+  ...
+# Subtest: most likes
+    # Subtest: returns the author with most total likes
+    ok 1 - returns the author with most total likes
+      ---
+      duration_ms: 43.524867
+      type: 'test'
+      ...
+    1..1
+ok 5 - most likes
+  ---
+  duration_ms: 61.270826
+  type: 'suite'
+  ...
+# Subtest: total likes
+    # Subtest: of empty list is zero
+    ok 1 - of empty list is zero
+      ---
+      duration_ms: 6.108882
+      type: 'test'
+      ...
+    # Subtest: when list has only one blog, equals the likes of that
+    ok 2 - when list has only one blog, equals the likes of that
+      ---
+      duration_ms: 1.199108
+      type: 'test'
+      ...
+    # Subtest: of a bigger list is calculated right
+    ok 3 - of a bigger list is calculated right
+      ---
+      duration_ms: 0.848958
+      type: 'test'
+      ...
+    1..3
+ok 6 - total likes
+  ---
+  duration_ms: 15.66009
+  type: 'suite'
+  ...
+# [dotenv@17.2.3] injecting env (4) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+# connecting to mongodb+srv://fullstack:fullstackpassword123@cluster0.jpvdcoy.mongodb.net/testBloglist?retryWrites=true&w=majority&appName=Cluster0
+# connected to MongoDB
+# Method: POST
+# Path:   /api/users
+# Body:   { username: 'tester', name: 'Test User', password: '12' }
+# ---
+# Subtest: when there is initially one user in db
+    # Subtest: creation fails with proper statuscode and message if password is too short
+    ok 1 - creation fails with proper statuscode and message if password is too short
+      ---
+      duration_ms: 3994.677834
+      type: 'test'
+      ...
+# Method: POST
+# Path:   /api/users
+# Body:   { username: 'te', name: 'Test User', password: 'validpassword' }
+# ---
+    # Subtest: creation fails with proper statuscode and message if username is too short
+    ok 2 - creation fails with proper statuscode and message if username is too short
+      ---
+      duration_ms: 790.71235
+      type: 'test'
+      ...
+# Method: POST
+# Path:   /api/users
+# Body:   { username: 'root', name: 'Superuser', password: 'validpassword' }
+# ---
+    # Subtest: creation fails if username is not unique
+    not ok 3 - creation fails if username is not unique
+      ---
+      duration_ms: 915.567196
+      type: 'test'
+      location: '/Users/zixingkeng/part4/bloglist-backend/tests/user_api.test.js:64:3'
+      failureType: 'testCodeFailure'
+      error: 'expected 400 "Bad Request", got 201 "Created"'
+      code: 'ERR_TEST_FAILURE'
+      stack: |-
+        TestContext.<anonymous> (/Users/zixingkeng/part4/bloglist-backend/tests/user_api.test.js:76:8)
+        process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async Suite.processPendingSubtests (node:internal/test_runner/test:744:7)
+        Test._assertStatus (/Users/zixingkeng/part4/bloglist-backend/node_modules/supertest/lib/test.js:309:14)
+        /Users/zixingkeng/part4/bloglist-backend/node_modules/supertest/lib/test.js:365:13
+        Test._assertFunction (/Users/zixingkeng/part4/bloglist-backend/node_modules/supertest/lib/test.js:342:13)
+        Test.assert (/Users/zixingkeng/part4/bloglist-backend/node_modules/supertest/lib/test.js:195:23)
+        localAssert (/Users/zixingkeng/part4/bloglist-backend/node_modules/supertest/lib/test.js:138:14)
+        Server.<anonymous> (/Users/zixingkeng/part4/bloglist-backend/node_modules/supertest/lib/test.js:152:11)
+        Object.onceWrapper (node:events:632:28)
+        Server.emit (node:events:518:28)
+        emitCloseNT (node:net:2419:8)
+        process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+      ...
+    1..3
+not ok 7 - when there is initially one user in db
+  ---
+  duration_ms: 5703.713495
+  type: 'suite'
+  location: '/Users/zixingkeng/part4/bloglist-backend/tests/user_api.test.js:9:1'
+  failureType: 'subtestsFailed'
+  error: '1 subtest failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..7
+# tests 18
+# suites 9
+# pass 17
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 23500.848487

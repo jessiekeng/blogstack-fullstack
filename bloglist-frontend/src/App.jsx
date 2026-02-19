@@ -59,14 +59,14 @@ const App = () => {
 
     try {
       const response = await axios.put(`/api/blogs/${blog.id}`, updatedBlog)
-      
-      setBlogs(blogs.map(b => 
-        b.id === blog.id 
-          ? { ...response.data, user: blog.user } 
+
+      setBlogs(blogs.map(b =>
+        b.id === blog.id
+          ? { ...response.data, user: blog.user }
           : b
       ))
-    } catch (e) { 
-      alert('Failed to update likes') 
+    } catch (e) {
+      alert('Failed to update likes')
     }
   }
 
@@ -85,20 +85,20 @@ const App = () => {
       <form onSubmit={handleLogin}>
         <h2>Login</h2>
         <div>
-          Username: 
-          <input 
-            value={username} 
+          Username:
+          <input
+            value={username}
             placeholder="Username"
-            onChange={({target}) => setUsername(target.value)} 
+            onChange={({ target }) => setUsername(target.value)}
           />
         </div>
         <div>
-          Password: 
-          <input 
-            type="password" 
-            value={password} 
+          Password:
+          <input
+            type="password"
+            value={password}
             placeholder="Password"
-            onChange={({target}) => setPassword(target.value)} 
+            onChange={({ target }) => setPassword(target.value)}
           />
         </div>
         <button type="submit">login</button>
@@ -110,12 +110,12 @@ const App = () => {
     <div>
       <h2>Blogs</h2>
       <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
-      
+
       <form onSubmit={handleCreateBlog}>
         <h3>Create New</h3>
-        <input value={newBlog.title} placeholder="title" onChange={({target}) => setNewBlog({...newBlog, title: target.value})} />
-        <input value={newBlog.author} placeholder="author" onChange={({target}) => setNewBlog({...newBlog, author: target.value})} />
-        <input value={newBlog.url} placeholder="url" onChange={({target}) => setNewBlog({...newBlog, url: target.value})} />
+        <input value={newBlog.title} placeholder="title" onChange={({ target }) => setNewBlog({ ...newBlog, title: target.value })} />
+        <input value={newBlog.author} placeholder="author" onChange={({ target }) => setNewBlog({ ...newBlog, author: target.value })} />
+        <input value={newBlog.url} placeholder="url" onChange={({ target }) => setNewBlog({ ...newBlog, url: target.value })} />
         <button type="submit">create</button>
       </form>
 
@@ -124,7 +124,7 @@ const App = () => {
           <strong>{blog.title}</strong> {blog.author} <br />
           Likes: {blog.likes} <button onClick={() => handleLike(blog)}>like</button> <br />
           {blog.url} <br />
-          {blog.user && (blog.user.username === user.username || blog.user === user.id) && (
+          {blog.user && (blog.user.username === user.username || blog.user === user.id || user.role === 'admin') && (
             <button onClick={() => handleDelete(blog)} style={{ backgroundColor: 'red', color: 'white' }}>remove</button>
           )}
         </div>
