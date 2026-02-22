@@ -1,6 +1,6 @@
-const dummy = (blogs) => 1
+const dummy = (_blogs) => 1
 
-const totalLikes = (blogs) => 
+const totalLikes = (blogs) =>
   blogs.length === 0 ? 0 : blogs.reduce((sum, blog) => sum + blog.likes, 0)
 
 const favoriteBlog = (blogs) => {
