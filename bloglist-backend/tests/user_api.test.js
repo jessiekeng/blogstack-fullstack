@@ -61,10 +61,8 @@ describe('when there is initially one user in db', () => {
   })
 
   test('creation fails if username is not unique', async () => {
-    const usersAtStart = await User.find({})
-
     const newUser = {
-      username: 'root',
+      username: 'root', // Already exists in beforeEach
       name: 'Superuser',
       password: 'validpassword'
     }
@@ -78,7 +76,8 @@ describe('when there is initially one user in db', () => {
     assert.ok(result.body.error.includes('unique'))
 
     const usersAtEnd = await User.find({})
-    assert.strictEqual(usersAtEnd.length, usersAtStart.length)
+    // We expect only the 1 original user to exist
+    assert.strictEqual(usersAtEnd.length, 1)
   })
 })
 
