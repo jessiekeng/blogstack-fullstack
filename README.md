@@ -2,8 +2,7 @@
 
 A professional-grade **MERN** application for managing blog lists, featuring secure authentication, role-based permissions, and automated CI/CD.
 
-![Build Status](https://github.com/miko-keng/part4_bloglist_backend/actions/workflows/pipeline.yml/badge.svg)
-
+![Build Status](https://github.com/miko-keng/blogstack-fullstack/actions/workflows/pipeline.yml/badge.svg)
 ## 🚀 Live Demo
 [View Live on Render](https://blogstack-fullstack.onrender.com/)
 
