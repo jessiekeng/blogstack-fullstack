@@ -1,0 +1,77 @@
+# @name loginAlice
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "alice_dev",
+  "password": "password123"
+}
+
+###
+
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer {{loginAlice.response.body.token}}
+
+{
+  "title": "React Best Practices 2026",
+  "author": "Alice Tan",
+  "url": "https://react.dev"
+}
+
+
+### (Make sure there is a blank line above)
+
+# @name loginBob
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "bob_data",
+  "password": "password123"
+}
+
+### (Make sure there is a blank line below)
+
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer {{loginBob.response.body.token}}
+
+{
+  "title": "Data Science at Sunway",
+  "author": "Bob Lim",
+  "url": "https://sunway.edu.my"
+}
+
+
+# @name loginCharlie
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "charlie_code",
+  "password": "password123"
+}
+
+###
+
+# @name loginCharlie
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "charlie_code",
+  "password": "password123"
+}
+
+### (And three hashes here)
+
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer {{loginCharlie.response.body.token}}
+
+{
+  "title": "Node.js Middleware Guide",
+  "author": "Charlie Wong",
+  "url": "https://nodejs.org"
+}
