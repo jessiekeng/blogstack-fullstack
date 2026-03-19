@@ -1,5 +1,17 @@
 @baseUrl = https://blogstack-fullstack.onrender.com/api
 
+### 0. INITIAL SETUP: CREATE ADMIN USER
+### Run this once if the admin doesn't exist in the database yet
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "username": "admin_jessie",
+  "name": "Jessie Admin",
+  "password": "adminpassword123",
+  "role": "admin"
+}
+
 ### 1. LOGIN AS ADMIN
 # @name loginAdmin
 POST {{baseUrl}}/login
@@ -40,17 +52,3 @@ Authorization: Bearer {{loginAlice.response.body.token}}
 DELETE {{baseUrl}}/blogs/69bba7dd9cf804d59ccb2154
 Authorization: Bearer {{loginAdmin.response.body.token}}
 
-### ------------------------------------------------------------
-### TEST D: ADMIN UPDATE (God Mode Edit)
-### Admin changes the likes or title of any blog
-### ------------------------------------------------------------
-PUT {{baseUrl}}/blogs/69bba7e59cf804d59ccb2159
-Content-Type: application/json
-Authorization: Bearer {{loginAdmin.response.body.token}}
-
-{
-  "title": "Admin Verified Content",
-  "author": "Alice Tan",
-  "url": "https://react.dev",
-  "likes": 999
-}
