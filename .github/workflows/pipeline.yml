@@ -60,7 +60,6 @@ jobs:
       - name: Test Docker Image
         run: |
           docker run -d --name test-backend -p 3003:3003 blogstack-backend:test
-          echo "Waiting for backend to start..."
           sleep 15
           curl -f http://localhost:3003 || exit 1
           docker stop test-backend
