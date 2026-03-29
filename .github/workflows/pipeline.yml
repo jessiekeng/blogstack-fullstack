@@ -53,14 +53,15 @@ jobs:
       - name: Build Docker Image
         uses: docker/build-push-action@v5
         with:
-          context: ./bloglist-backend   # the folder containing your Dockerfile
+          context: ./bloglist-backend
           load: true
           tags: blogstack-backend:test
 
       - name: Test Docker Image
         run: |
           docker run -d --name test-backend -p 3003:3003 blogstack-backend:test
-          sleep 10
+          echo "Waiting for backend to start..."
+          sleep 15
           curl -f http://localhost:3003 || exit 1
           docker stop test-backend
           docker rm test-backend
